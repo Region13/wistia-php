@@ -1,6 +1,5 @@
 # Wistia PHP
 
-[![Latest Version](https://img.shields.io/github/release/Automattic/wistia-php.svg?style=flat-square)](https://github.com/Automattic/wistia-php/releases)
 [![Software License](https://img.shields.io/badge/license-GPLv2-brightgreen.svg?style=flat-square)](LICENSE)
 
 A PHP client for consuming the Wistia API.
@@ -10,7 +9,7 @@ A PHP client for consuming the Wistia API.
 Via Composer
 
 ``` bash
-$ composer require automattic/wistia-php
+$ composer require esc13/wistia-php
 ```
 
 ## Methods & Properties
@@ -77,6 +76,7 @@ $ phpunit
 
 - [Automattic](https://github.com/Automattic)
 - [Nicola Mustone](https://github.com/SiR-DanieL)
+- [Derak Kilgo](https://github.com/Region13)
 
 ## License
 
