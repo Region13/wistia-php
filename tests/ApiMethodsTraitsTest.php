@@ -1,5 +1,5 @@
 <?php
-namespace Automattic\Wistia\Tests;
+namespace esc13\Wistia\Tests;
 
 use BadMethodCallException;
 

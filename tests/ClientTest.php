@@ -1,9 +1,9 @@
 <?php
-namespace Automattic\Wistia\Tests;
+namespace esc13\Wistia\Tests;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\TransferException;
-use Automattic\Wistia\Client;
+use esc13\Wistia\Client;
 
 class ClientTest extends \PHPUnit_Framework_TestCase {
     use ApiMethodsTraitTest;

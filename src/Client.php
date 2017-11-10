@@ -1,12 +1,12 @@
 <?php
-namespace Automattic\Wistia;
+namespace esc13\Wistia;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\TransferException;
 
 /**
  * Class Client
- * @package Automattic\Wistia
+ * @package esc13\Wistia
  */
 class Client {
     use Traits\ApiMethodsTrait;
