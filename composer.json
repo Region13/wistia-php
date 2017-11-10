@@ -1,8 +1,8 @@
 {
-    "name": "automattic/wistia-php",
+    "name": "esc13/wistia-php",
     "description": "PHP wrapper for Wistia API",
     "keywords": ["wistia","php","client","wrapper","video"],
-    "homepage": "http://github.com/Automattic/wistia-php",
+    "homepage": "https://github.com/Region13/wistia-php",
     "license": "GPLv2",
     "authors": [
         {
@@ -14,6 +14,11 @@
             "name": "Nicola Mustone",
             "email": "nicola@automattic.com",
             "homepage": "https://nicola.blog",
+            "role": "Developer"
+        },
+        {
+            "name": "Derak Kilgo",
+            "email": "dkilgo@esc13.net",
             "role": "Developer"
         }
     ],

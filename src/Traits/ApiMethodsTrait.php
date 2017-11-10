@@ -3,6 +3,46 @@ namespace Automattic\Wistia\Traits;
 
 use BadMethodCallException;
 
+/**
+ * Trait ApiMethodsTrait
+ * @package Automattic\Wistia\Traits
+ *
+ * Add code-complete hints for psudo-methods.
+ * @method list_projects(array $param = []) Accepts page and per_page params as array. API defaults to 100 results.
+ * @method show_project(string $project_hashed_id)
+ * @method create_project(array $project_data)
+ * @method update_project(string $project_hashed_id,array $project_data)
+ * @method delete_project(string $project_hashed_id)
+ * @method copy_project(string $project_hashed_id)
+ *
+ * @method list_sharings(string $project_hashed_id)
+ * @method show_sharing(string $project_hashed_id, int $sharing_id)
+ * @method create_sharing(string $project_hashed_id)
+ * @method update_sharing(string $project_hashed_id, int $sharing_id, array $sharing_data)
+ * @method delete_sharing(string $project_hashed_id, int $sharing_id)
+ *
+ * @method list_medias(array $param = []) Accepts "page" and "per_page" params.
+ * @method show_media(string  $media_hashed_id)
+ * @method create_media(string $file_path, array $media_data)
+ * @method update_media(string $media_hashed_id, array $media_data)
+ * @method delete_media(string $media_hashed_id)
+ * @method copy_media(string $media_hashed_id)
+ * @method stats_media(string $media_hashed_id)
+ *
+ * @method show_account(array $param = []) Accepts "page" and "per_page" params.
+ *
+ * @method show_customizations(string $media_hashed_id)
+ * @method create_customizations(string $media_hashed_id, array $customizations_data)
+ * @method update_customizations(string $media_hashed_id, array $customization_data)
+ * @method delete_customizations(string $media_hashed_id)
+ *
+ * @method list_captions(string $media_hashed_id)
+ * @method show_captions(string $media_hashed_id, string $language_code)
+ * @method create_captions(string $media_hashed_id, array $captions_data)
+ * @method update_captions(string $media_hashed_id, array $captions_data)
+ * @method delete_captions(string $media_hashed_id , string $language_code)
+ *
+ */
 trait ApiMethodsTrait {
 
     /**
@@ -50,6 +90,9 @@ trait ApiMethodsTrait {
         'delete_captions'       => [ 'delete', 'medias/%s/captions/%s' ],
     ];
 
+	/**
+	 * @return mixed
+	 */
     abstract public function get_client();
 
     /**
@@ -79,11 +122,11 @@ trait ApiMethodsTrait {
     /**
      * Check if a method exists and return its name and params
      *
-     * @param  string $name
+     * @param  string $method
      * @return array|null
-     * @access private
+     * @access protected
      */
-    private function _get_method_signature( $method ) {
+    protected function _get_method_signature( $method ) {
         $valid_method = isset( $this->_methods[ $method ] ) &&
                         is_array( $this->_methods[ $method ] ) &&
                         count( $this->_methods[ $method ] ) >= 2;

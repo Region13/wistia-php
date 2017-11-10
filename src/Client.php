@@ -4,13 +4,17 @@ namespace Automattic\Wistia;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\TransferException;
 
+/**
+ * Class Client
+ * @package Automattic\Wistia
+ */
 class Client {
     use Traits\ApiMethodsTrait;
 
     /**
      * Wrapper version
      */
-    const VERSION = '1.0.0';
+    const VERSION = '1.0.0.1';
 
     /**
      * The HTTP client
@@ -33,21 +37,30 @@ class Client {
     /**
      * API Password
      * @var    string
-     * @access private
+     * @access protected
      */
-    private $_token;
+    protected $_token;
+
+	/**
+	 * Output object(stdClass) or array
+	 * @var string
+	 * @access protected
+	 */
+	protected $_output;
 
     /**
      * Init the HTTP Client
      *
      * @param array $params
+     * @throws WistiaException
      */
     public function __construct( $params ) {
         /**
          * Default params to pass to the Client
          */
         $defaults = [
-            'format' => 'json'
+            'format' => 'json',
+	        'output'=>'object'
         ];
 
         $params = array_merge( $defaults, $params );
@@ -58,6 +71,7 @@ class Client {
 
         $this->format = $params['format'];
         $this->_token = $params['token'];
+        $this->_output = $params['output'];
 
         $this->client = new HttpClient( [
             'base_uri' => 'https://api.wistia.com/v1/'
@@ -141,6 +155,7 @@ class Client {
      * @param  string $file
      * @param  array  $query
      * @return object
+     * @throws WistiaException
      */
     public function create_media( $file, $query = [] ) {
         if ( empty( $file ) || ! file_exists( $file ) ) {
@@ -178,7 +193,7 @@ class Client {
             $this->last_response_code = $response->getStatusCode();
 
             if ( $response->getStatusCode() === 200 || $response->getStatusCode() === 400 ) {
-                return json_decode( $response->getBody()->getContents() );
+                return json_decode( $response->getBody()->getContents(),($this->_output=='array' ? true : false));
             } else {
                 // Error 401 - API password probably wrong. Returns text/html
                 return $response->getBody()->getContents();
@@ -193,12 +208,12 @@ class Client {
      *
      * @param  string        $type
      * @param  string        $endpoint
-     * @param  array         $args
+     * @param  array         $query
      * @return string
-     * @access private
+     * @access protected
      * @codeCoverageIgnore
      */
-    private function _make_request( $type, $endpoint, $query = [] ) {
+    protected function _make_request( $type, $endpoint, $query = [] ) {
         $params = [
             'headers' => [
                 'Authorization' => 'Basic ' . base64_encode( 'api:' . $this->_token ),
@@ -215,7 +230,7 @@ class Client {
             $response                 = $this->client->request( $type, $endpoint . '.' . $this->format, $params );
             $this->last_response_code = $response->getStatusCode();
 
-            return json_decode( $response->getBody()->getContents() );
+            return json_decode( $response->getBody()->getContents(),($this->_output=='array' ? true : false));
         } catch( TransferException $e ) {
             return $e->getCode();
         }
